@@ -17,7 +17,7 @@ npm run dev
 
 You should see the following page open in your browser:
 
-
+![image](https://github.com/wegotpop/tanstack-demo/assets/90616460/b4ea42bb-f3ef-4852-a50d-5b8e72fcc9d4)
 
 ## Task 1 - Columns:
 

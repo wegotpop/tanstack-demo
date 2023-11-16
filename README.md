@@ -3,6 +3,22 @@
 - [Official Docs](https://tanstack.com/table/v8/docs/adapters/react-table)
 - [Official Github Examples](https://github.com/TanStack/table/tree/main/examples/react)
 
+## First Steps
+
+1. pull the repo
+2. install dependencies
+```shell
+npm install
+```
+3. spin up the app
+```shell
+npm run dev
+```
+
+You should see the following page open in your browser:
+
+
+
 ## Task 1 - Columns:
 
 - remove the top 2 rows of extra headers

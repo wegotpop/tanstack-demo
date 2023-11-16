@@ -1,88 +1,100 @@
-import React from 'react';
+import React from "react";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table'
-import { makeData, Person } from '../utils/makeData.ts'
+} from "@tanstack/react-table";
+import { makeData, Person } from "../utils/makeData.ts";
 
 const columns: ColumnDef<Person>[] = [
+  // TODO: combine columns & remove extra header rows
   {
-    header: 'Name',
-    footer: props => props.column.id,
+    header: "Name",
+    footer: (props) => props.column.id,
     columns: [
       {
-        accessorKey: 'firstName',
-        cell: info => info.getValue(),
-        footer: props => props.column.id,
+        accessorKey: "firstName",
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
       },
       {
-        accessorFn: row => row.lastName,
-        id: 'lastName',
-        cell: info => info.getValue(),
+        accessorFn: (row) => row.lastName,
+        id: "lastName",
+        cell: (info) => info.getValue(),
         header: () => <span>Last Name</span>,
-        footer: props => props.column.id,
+        footer: (props) => props.column.id,
       },
     ],
   },
   {
-    header: 'Info',
-    footer: props => props.column.id,
+    header: "Info",
+    footer: (props) => props.column.id,
     columns: [
       {
-        accessorKey: 'age',
-        header: () => 'Age',
-        footer: props => props.column.id,
+        accessorKey: "age",
+        header: () => "Age",
+        footer: (props) => props.column.id,
       },
       {
-        header: 'More Info',
+        header: "More Info",
         columns: [
           {
-            accessorKey: 'visits',
+            accessorKey: "visits",
             header: () => <span>Visits</span>,
-            footer: props => props.column.id,
+            footer: (props) => props.column.id,
           },
           {
-            accessorKey: 'status',
-            header: 'Status',
-            footer: props => props.column.id,
+            accessorKey: "status",
+            header: "Status",
+            footer: (props) => props.column.id,
           },
           {
-            accessorKey: 'progress',
-            header: 'Profile Progress',
-            footer: props => props.column.id,
+            accessorKey: "progress",
+            header: "Profile Progress",
+            footer: (props) => props.column.id,
           },
         ],
       },
     ],
   },
-]
+];
 
+function GlobalSearch() {
+  // TODO: implement global search; hint: additional props/state will be needed
+
+  return (
+    <div className="my-2">
+      <label htmlFor="search">Search:</label>{" "}
+      <input id="search" type="search" />
+    </div>
+  );
+}
 
 export function TanstackTable() {
-const [data, setData] = React.useState(makeData(10))
-  const rerender = () => setData(makeData(10))
+  const [data, setData] = React.useState(makeData(10));
+  const rerender = () => setData(makeData(10));
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  })
+  });
 
   return (
-    <div className="p-2">
+    <div className="table-container">
+      <GlobalSearch />
       <table className="table table-striped table-responsive">
         <thead>
-          {table.getHeaderGroups().map(headerGroup => (
+          {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
+              {headerGroup.headers.map((header) => (
                 <th key={header.id} colSpan={header.colSpan}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                 </th>
               ))}
@@ -90,9 +102,9 @@ const [data, setData] = React.useState(makeData(10))
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
+              {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
@@ -101,15 +113,15 @@ const [data, setData] = React.useState(makeData(10))
           ))}
         </tbody>
         <tfoot>
-          {table.getFooterGroups().map(footerGroup => (
+          {table.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
-              {footerGroup.headers.map(header => (
+              {footerGroup.headers.map((header) => (
                 <th key={header.id} colSpan={header.colSpan}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
                         header.column.columnDef.footer,
-                        header.getContext()
+                        header.getContext(),
                       )}
                 </th>
               ))}
@@ -123,5 +135,5 @@ const [data, setData] = React.useState(makeData(10))
         </button>
       </div>
     </div>
-  )
+  );
 }
